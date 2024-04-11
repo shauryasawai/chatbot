@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shaurya's GPT Bot</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <img src="chat.png" alt="Shaurya's GPT Logo" class="logo">
+    <p class="message">How can I help you today?</p>
+    <div class="container">
+        <form class="search-form" action="#">
+            <input type="text" id="textInput" name="search-box" placeholder="Ask from Shaurya's GPT" class="search-box">
+            <button type="submit" class="search-button">Search</button>
+        </form>
+    </div>
+    <div id="search_result" class="result">
+        
+
+    </div>
+    <script>
+        $(document).ready(function() {
+            $('#search-form').on('submit', function(event){
+                var rawText = $('#textInput')            
+                event.preventDefault(); 
+                
+                $.ajax({
+                    type: "POST",
+                    url: "/get",
+                    data: {
+                        msg: rawText,
+                    },
+                    success: function(data) {
+                        $('#search_result').append($.parseHTML(botHTML))
+                        $('#search_result').html('msg: ' + response.text);
+                    }
+                });
+                event.preventDefault()
+            });
+        });
+    </script>
+</body>
+</html>
